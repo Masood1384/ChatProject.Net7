@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chat.Core\Chat.Core.csproj" />
+    <ProjectReference Include="..\Chat.Service\Chat.Service.csproj" />
+    <ProjectReference Include="..\Chat.Web\Chat.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.OpenApi">
+      <HintPath>..\..\Kitchen-Api-.Net 7\Kitchen.Web\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
