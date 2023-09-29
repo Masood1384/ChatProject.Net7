@@ -16,8 +16,8 @@ namespace Chat.Service.Extension
         {
             if (typeof(TDTO).GetInterface("IDateDTO") != null && entity.GetType().GetInterface("IDateEntity") != null)
             {
-                Mapster.TypeAdapterConfig<IDateEntity, TDTO>.NewConfig().Map("LocalCreate", p => p.CreateON.ToPersian())
-                    .Map("LocalUpdate", p => p.UpdateON.ToPersian());
+                //Mapster.TypeAdapterConfig<IDateEntity, TDTO>.NewConfig().Map("LocalCreate", p => p.CreateON.ToPersian())
+                //    .Map("LocalUpdate", p => p.UpdateON.ToPersian());
             }
             var dto = entity.Adapt<TDTO>();
             return dto;

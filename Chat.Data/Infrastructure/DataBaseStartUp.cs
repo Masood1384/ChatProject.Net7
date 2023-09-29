@@ -30,7 +30,7 @@ namespace Chat.Data.Infrastructure
 
             services.AddDbContextPool<IApplicationContext, SqlServerApplicationContext>((options) =>
             {
-                options.UseSqlServer("Data Source=.;Initial Catalog=Kitchen;Integrated Security = true;Encrypt=False;").UseLazyLoadingProxies();
+                options.UseSqlServer("Data Source=.;Initial Catalog=Chat;Integrated Security = true;Encrypt=False;").UseLazyLoadingProxies();
             }, poolSize: 16);
         }
     }

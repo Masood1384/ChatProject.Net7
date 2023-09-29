@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Kitchen.Core.Infrastructure;
+using Chat.Core.Infrastructure;
+using Swashbuckle.AspNetCore.Filters;
+using Microsoft.OpenApi.Models;
 
 namespace Chat.Framework.Infrastructure
 {
@@ -34,6 +36,30 @@ namespace Chat.Framework.Infrastructure
 
                 };
             });
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Masood",
+                    Version = "V1",
+                    Description = "My App For Kitchen",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Masood",
+                        Email = "masoodtalebi93@gmail.com",
+                        Url = new Uri("http://masood-tmp.ir/"),
+                    },
+                });
+
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+            
         }
 
         public void Configure(IApplicationBuilder app)

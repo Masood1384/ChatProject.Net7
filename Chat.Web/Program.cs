@@ -1,25 +1,25 @@
+using Chat.Framework.Infrastructure.Extension;
+using Serilog;
+using Serilog.Formatting.Compact;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+builder.Services.ConfigureApplicationServices(builder.Configuration);
+////// *SeriLog
+builder.Host.UseSerilog(((context, provider, logger) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    logger.MinimumLevel.Information().WriteTo.File("log.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error
+    ).WriteTo.File(new RenderedCompactJsonFormatter(), "log.ndjson", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Warning);
+}));
+var app = builder.Build();
+//app.UseCors(x => x
+//                    .AllowAnyMethod()
+//                    .AllowAnyHeader()
+//                    .SetIsOriginAllowed(origin => true) // allow any origin
+//                    .AllowCredentials());
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseStaticFiles();
+app.ConfigureRequestPipeline();
 
 app.Run();
