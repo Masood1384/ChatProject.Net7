@@ -12,6 +12,7 @@ namespace Chat.Core.Domain.Users
         public string Name { get; set; }
         public string Family { get; set; }
         public string Bio { get; set; }
+        public string Image { get; set; }
         public int UserId { get; set; }
         //Navigations
         public virtual User User { get; set; }
